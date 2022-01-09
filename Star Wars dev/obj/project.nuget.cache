@@ -1,0 +1,15 @@
+{
+  "version": 2,
+  "dgSpecHash": "gi9i4WUFSvbnJFqbvAXiWOt7ito/GmG86UA0yZkRelQfet9OLRSf2Mi6kdH65prR22UxXVKeeE6PIa2NnhLiLQ==",
+  "success": true,
+  "projectFilePath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Star Wars dev\\Star Wars dev.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\dydvo\\.nuget\\packages\\csfml\\2.5.0\\csfml.2.5.0.nupkg.sha512",
+    "C:\\Users\\dydvo\\.nuget\\packages\\sfml.audio\\2.5.0\\sfml.audio.2.5.0.nupkg.sha512",
+    "C:\\Users\\dydvo\\.nuget\\packages\\sfml.graphics\\2.5.0\\sfml.graphics.2.5.0.nupkg.sha512",
+    "C:\\Users\\dydvo\\.nuget\\packages\\sfml.net\\2.5.0\\sfml.net.2.5.0.nupkg.sha512",
+    "C:\\Users\\dydvo\\.nuget\\packages\\sfml.system\\2.5.0\\sfml.system.2.5.0.nupkg.sha512",
+    "C:\\Users\\dydvo\\.nuget\\packages\\sfml.window\\2.5.0\\sfml.window.2.5.0.nupkg.sha512"
+  ],
+  "logs": []
+}
