@@ -31,5 +31,13 @@ namespace Star_Wars_dev
         }
 
         public abstract void Draw(RenderWindow rw);
+
+        public abstract void Update();
+
+        public void Move(Vector2f coords)
+        {
+            if (coords == null) throw new ArgumentNullException("Movement to nothing");
+            else this.coords = coords;
+        }
     }
 }

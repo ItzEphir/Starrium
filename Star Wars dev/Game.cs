@@ -11,15 +11,16 @@ namespace Star_Wars_dev
 {
     public class Game
     {
-        public Sprite background;
-        public RenderWindow rw;
-        public string screen;
-        public static Font font;
+        public Sprite Background;
+        public RenderWindow RW;
+        public string Screen;
+        public static Font Font;
 
         List<Planet> planets;
         List<Button> buttons;
+        List<IDrawable> drawables;
 
-        Ship player;
+        Player player;
         Planet chosenPlanet;
         Planet inplanete;
         Clock clock;
@@ -30,20 +31,22 @@ namespace Star_Wars_dev
 
         public Game(RenderWindow window)
         {
-            background = new Sprite(new Texture("files/img/небо.jpg"));
-            float mulriplierx = Program.resolution.X / background.Texture.Size.X;
-            float mulripliery = Program.resolution.Y / background.Texture.Size.Y;
+            Background = new Sprite(new Texture("files/img/небо.jpg"));
+            float mulriplierx = Program.resolution.X / Background.Texture.Size.X;
+            float mulripliery = Program.resolution.Y / Background.Texture.Size.Y;
 
             planets = new List<Planet>();
             buttons = new List<Button>();
-            player = new Ship("player", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), new Texture("files/img/ship.png"), 0.5f);
+            player = new Player("player", 100, 100f, 500f, new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), new Texture("files/img/ship.png"), 0.5f);
 
-            background.Scale = new Vector2f(mulriplierx, mulripliery);
+            drawables = new List<IDrawable>();
 
-            font = new Font("files/font/ArialRegular.ttf");
+            Background.Scale = new Vector2f(mulriplierx, mulripliery);
 
-            rw = window;
-            screen = "0";
+            Font = new Font("files/font/ArialRegular.ttf");
+
+            RW = window;
+            Screen = "0";
             clock = new Clock();
         }
 
@@ -51,12 +54,12 @@ namespace Star_Wars_dev
         {
             time = clock.ElapsedTime;
 
-            if (screen == "0") menu(rw, 3);
-            else if (screen == "game") game(rw);
-            else if (screen == "inplanetan") inplanetan(rw);
-            else if (screen == "inplanet") inplanet(rw);
-            else if (screen == "new game") newgame(rw);
-            else if (screen == "statistic") statistic(rw);
+            if (Screen == "0") menu(rw, 3);
+            else if (Screen == "game") game(rw);
+            else if (Screen == "inplanetan") inplanetan(rw);
+            else if (Screen == "inplanet") inplanet(rw);
+            else if (Screen == "new game") newgame(rw);
+            else if (Screen == "statistic") statistic(rw);
 
 
             planets.Clear();
@@ -65,7 +68,7 @@ namespace Star_Wars_dev
 
         public void Draw()
         {
-            rw.Draw(background);
+            RW.Draw(Background);
         }
 
         public void KeyPressed(object sender, KeyEventArgs e)
@@ -102,23 +105,23 @@ namespace Star_Wars_dev
 
            
 
-            rw.PrintText("Starrium", new Vector2f(Program.resolution.X / 2, 10), 100, Color.White, font, 1);
+            rw.PrintText("Starrium", new Vector2f(Program.resolution.X / 2, 10), 100, Color.White, Font, 1);
 
             if (rw.button(buttons[0]))
             {
-                screen = "new game";
+                Screen = "new game";
                 return;
             }
 
             if (rw.button(buttons[1]))
             {
-                screen = "game";
+                Screen = "game";
                 return;
             }
 
             if (rw.button(buttons[2]))
             {
-                screen = "statistic";
+                Screen = "statistic";
                 return;
             }
         }
@@ -131,31 +134,44 @@ namespace Star_Wars_dev
 
             if (planets.Count < valueplanets)
             {
-                planets.Add(new Planet("Оля", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), 25, new Texture("files/img/planet02.png"), 0.25f));
-                planets.Add(new Planet("test", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 50, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 50), 25, new Texture("files/img/planet02.png"), 0.25f));
-            }
-            
-            foreach(Planet planet in planets)
-            {
-                planet.Draw(rw);
+                planets.Add(new Planet("Оля", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), 75, new Texture("files/img/planet01.png"), 1f));
+                planets.Add(new Planet("Akra", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 300, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 300), 75, new Texture("files/img/planet02.png"), 1f));
             }
 
-            player.Draw(rw);
+            planets.ForEach(planet => drawables.Add(planet));
+
+            drawables.Add(player);
+
+            drawables.ForEach(drawable => drawable.Draw(rw));
 
             chosenPlanet = GetClosestPlanet(mouse.X, mouse.Y);
 
-            if(chosenPlanet != null)
+            if (chosenPlanet != null)
             {
-                rw.PrintText(chosenPlanet.name, new Vector2f(chosenPlanet.x, chosenPlanet.y - chosenPlanet.radius - 25), 25, Color.White, font, 1);
+                rw.PrintText(chosenPlanet.name, new Vector2f(chosenPlanet.x, chosenPlanet.y - chosenPlanet.Radius), 25, Color.White, Font, 1);
                 if (Mouse.IsButtonPressed(Mouse.Button.Left))
                 {
-                    inplanete = chosenPlanet;
-                    screen = "inplanetan";
-                    return;
+                    // if (chosenPlanet.Check(player))
+                    // {
+                    //     chosenPlanet.Center();
+                    //     inplanete = chosenPlanet;
+                    //     Screen = "inplanetan";
+                    //     return;
+                    // }
+                    // else
+                    // {
+                    //     player.normCoords(chosenPlanet);
+                    //     player.Move(chosenPlanet);
+                    // }
+                    player.Move(chosenPlanet);
+
+                    player.normCoords(chosenPlanet);
+
                 }
             }
 
             checkKeys(rw);
+            player.Update();
         }
 
         void inplanetan(RenderWindow rw)
@@ -175,7 +191,7 @@ namespace Star_Wars_dev
 
             if(count == 7.1f)
             {
-                screen = "inplanet";
+                Screen = "inplanet";
                 return;
             }
 
@@ -211,7 +227,7 @@ namespace Star_Wars_dev
 
             foreach (Planet planet in planets)
             {
-                if (new Vector2f(planet.x, planet.y).Distance(new Vector2f(X, Y)) < planet.radius)
+                if (new Vector2f(planet.x, planet.y).Distance(new Vector2f(X, Y)) < planet.Radius)
                 {
                     res = planet;
                 }

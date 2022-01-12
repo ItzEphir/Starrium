@@ -16,7 +16,7 @@ namespace Star_Wars_dev
         Color colorTitle;
         Color activeColorTitle;
         Vector2f hitBox;
-        Font font = Game.font;
+        Font font = Game.Font;
         Text text;
         Text letter;
         string message;
