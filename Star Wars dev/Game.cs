@@ -42,6 +42,7 @@ namespace Star_Wars_dev
 
         bool mousePressed = false;
         bool escapePressed = false;
+        bool spacePressed = false;
 
         public Game(RenderWindow window)
         {
@@ -65,11 +66,11 @@ namespace Star_Wars_dev
 
             Font = new Font("files/font/ArialRegular.ttf");
 
-            barracks = new Barracks("Галактическая казарма", new Vector2f(200, 100), new Texture("files/img/House.png"));
-            factory = new Factory("Фабрика", new Vector2f(100, 100), new Texture("files/img/House.png"));
+            barracks = new Barracks("Галактическая казарма", new Vector2f(200, 100), new Texture("files/img/Barracks.png"));
+            factory = new Factory("Фабрика", new Vector2f(100, 100), new Texture("files/img/Factory.png"));
             house1 = new House("Город", new Vector2f(400, 100), new Texture("files/img/House.png"));
             house2 = new House("Город", new Vector2f(500, 100), new Texture("files/img/House.png"));
-            park = new Park("Центр развлечений", new Vector2f(300, 100), new Texture("files/img/House.png"));
+            park = new Park("Центр развлечений", new Vector2f(300, 100), new Texture("files/img/Park.png"));
 
             RW = window;
             Screen = "0";
@@ -86,13 +87,15 @@ namespace Star_Wars_dev
 
             switch (Screen)
             {
-                case "0": menu(rw, 3); break;
+                case "0": menu(rw, 4); break;
                 case "game": game(rw); break;
                 case "inplanetan": inplanetan(rw); break;
                 case "inplanet": inplanet(rw); break;
                 case "continue": continuegame(rw); break;
                 case "new game": newgame(rw); break;
                 case "statistic": statistic(rw); break;
+                case "titles": titles(rw); break;
+                case "win": win(rw); break;
             }
 
             clock.Restart().AsMilliseconds();
@@ -118,26 +121,28 @@ namespace Star_Wars_dev
             if (buttons.Count != currentButtons)
             {
                 buttons = currentButtons.buildButtons(
-                    new List<Vector2f>() { new Vector2f(50, Program.resolution.Y / 2), new Vector2f(Program.resolution.X - 50, Program.resolution.Y / 2), new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2) },
-                    new List<Vector2f>() { new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0) },
-                    new List<Color>() { new Color(255, 255, 255, 100), new Color(255, 255, 255, 100), new Color(255, 255, 255, 100) },
-                    new List<Color>() { new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0) },
-                    new List<Color>() { new Color(255, 255, 255, 255), new Color(255, 255, 255, 255), new Color(255, 255, 255, 255) },
-                    new List<Color>() { new Color(100, 100, 100, 100), new Color(100, 100, 100, 100), new Color(100, 100, 100, 100) },
-                    new List<Vector2f>() { new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0) },
-                    new List<string>() { "Начать игру", "Продолжить", "Статистика" },
-                    new List<uint>() { 50, 50, 50 },
-                    new List<int>() { 120, 120, 120 },
-                    new List<uint>() { 0, 2, 1 },
-                    new List<bool>() { false, false, false },
-                    new List<bool>() { true, true, true },
-                    new List<bool>() { true, true, true}
+                    new List<Vector2f>() { new Vector2f(50, Program.resolution.Y / 2), new Vector2f(Program.resolution.X - 50, Program.resolution.Y / 2), new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2) , new Vector2f(Program.resolution.X / 2, Program.resolution.Y - 150)},
+                    new List<Vector2f>() { new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0) },
+                    new List<Color>() { new Color(255, 255, 255, 100), new Color(255, 255, 255, 100), new Color(255, 255, 255, 100), new Color(255, 255, 255, 100) },
+                    new List<Color>() { new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0) },
+                    new List<Color>() { new Color(255, 255, 255, 255), new Color(255, 255, 255, 255), new Color(255, 255, 255, 255), new Color(255, 255, 255, 255) },
+                    new List<Color>() { new Color(100, 100, 100, 100), new Color(100, 100, 100, 100), new Color(100, 100, 100, 100), new Color(100, 100, 100, 100) },
+                    new List<Vector2f>() { new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0), new Vector2f(0, 0) },
+                    new List<string>() { "Начать игру", "Продолжить", "Статистика", "Титры" },
+                    new List<uint>() { 50, 50, 50, 50 },
+                    new List<int>() { 120, 120, 120, 120 },
+                    new List<uint>() { 0, 2, 1, 1 },
+                    new List<bool>() { false, false, false, false },
+                    new List<bool>() { true, true, true, true },
+                    new List<bool>() { true, true, true, true }
                     );
             }
 
            
 
             rw.PrintText("Starrium", new Vector2f(Program.resolution.X / 2, 10), 100, Color.White, Font, 1);
+
+            buttons[2].changeColor(new Color(50, 50, 50, 100));
 
             if (rw.button(buttons[0]))
             {
@@ -153,17 +158,34 @@ namespace Star_Wars_dev
                 return;
             }
 
-            if (rw.button(buttons[2]))
+            rw.button(buttons[2]);
+
+            if (rw.button(buttons[3]))
             {
-                Screen = "statistic";
+                Screen = "titles";
                 buttons.Clear();
                 return;
+            }
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            {
+                escapePressed = true;
+            }
+            else
+            {
+                if (escapePressed)
+                {
+                    escapePressed = false;
+                    rw.Close();
+                    return;
+                }
             }
         }
 
         void game(RenderWindow rw)
         {
             int valueplanets = 6;
+            bool winner = true;
 
             Vector2f mouse = new Vector2f(Mouse.GetPosition(rw).X, Mouse.GetPosition(rw).Y);
 
@@ -176,8 +198,6 @@ namespace Star_Wars_dev
                 planets.Add(new Planet("Athou", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * (-400), Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 600), 75, new Texture("files/img/planet05.png"), 1f, false, false));
                 planets.Add(new Planet("Lemon King", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 400, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * (-350)), 75, new Texture("files/img/planet06.png"), 1f, false, false));
             }
-
-            Console.WriteLine(planets.Count);
 
             planets.ForEach(planet => drawables.Add(planet));
 
@@ -219,6 +239,8 @@ namespace Star_Wars_dev
 
             checkKeys(rw);
             player.Update();
+
+            
         }
 
         void inplanetan(RenderWindow rw)
@@ -411,7 +433,7 @@ namespace Star_Wars_dev
 
             buildings.ForEach(building => building.Draw(rw));
 
-            playersShip.ForEach(playerS => playerS.Draw(rw));
+            // playersShip.ForEach(playerS => playerS.Draw(rw));
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
             {
@@ -594,14 +616,14 @@ namespace Star_Wars_dev
                 }
             }
             
-            player = new Player(playerinfo[0], Convert.ToInt32(playerinfo[1]), Convert.ToSingle(playerinfo[2]), Convert.ToSingle(playerinfo[3]), new Vector2f(Convert.ToSingle(playerinfo[4]), Convert.ToSingle(playerinfo[5])), new Texture("files/img/ship.png"));
+            player = new Player(playerinfo[0], Convert.ToInt32(playerinfo[1]), Convert.ToSingle(playerinfo[2]), Convert.ToSingle(playerinfo[3]), new Vector2f(Convert.ToSingle(playerinfo[4]), Convert.ToSingle(playerinfo[5])), new Texture("files/img/Vzhvzhvzhvzh.png"), 0.5f);
 
-            planets.Add(new Planet("Sterrum", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), 75, new Texture("files/img/planet01.png"), 1f));
-            planets.Add(new Planet("Akra", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 300, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 300), 75, new Texture("files/img/planet02.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
-            planets.Add(new Planet("Lauzer", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 500, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 500), 75, new Texture("files/img/planet03.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
-            planets.Add(new Planet("Nasté", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * (-200), Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * (-400)), 75, new Texture("files/img/planet04.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
-            planets.Add(new Planet("Athou", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * (-400), Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 600), 75, new Texture("files/img/planet05.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
-            planets.Add(new Planet("Lemon King", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 400, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * (-350)), 75, new Texture("files/img/planet06.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
+            planets.Add(new Planet("Sterrum", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2), 75, new Texture("files/img/planet01.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
+            planets.Add(new Planet("Akra", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 300, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 300), 75, new Texture("files/img/planet02.png"), 1f, Convert.ToBoolean(info[2]), Convert.ToBoolean(info[3])));
+            planets.Add(new Planet("Lauzer", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 500, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 500), 75, new Texture("files/img/planet03.png"), 1f, Convert.ToBoolean(info[4]), Convert.ToBoolean(info[5])));
+            planets.Add(new Planet("Nasté", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * (-200), Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * (-400)), 75, new Texture("files/img/planet04.png"), 1f, Convert.ToBoolean(info[6]), Convert.ToBoolean(info[7])));
+            planets.Add(new Planet("Athou", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * (-400), Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * 600), 75, new Texture("files/img/planet05.png"), 1f, Convert.ToBoolean(info[8]), Convert.ToBoolean(info[9])));
+            planets.Add(new Planet("Lemon King", new Vector2f(Program.resolution.X / 2 - Program.resolution.X / Program.resolution.Y * 400, Program.resolution.Y / 2 - Program.resolution.Y / Program.resolution.X * (-350)), 75, new Texture("files/img/planet06.png"), 1f, Convert.ToBoolean(info[10]), Convert.ToBoolean(info[11])));
 
             for(int i = 0; i < planetinfo.GetLength(0); i++)
             {
@@ -648,6 +670,63 @@ namespace Star_Wars_dev
         void statistic(RenderWindow rw)
         {
 
+        }
+
+        void titles(RenderWindow rw)
+        {
+            rw.PrintText("Программист: Дворянников Дмитрий", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2 - 75), 25, new Color(255, 255, 255, 200), Font, 1);
+            rw.PrintText("Арт Дизайн: Баршутина Валерия", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2 + 75), 25, new Color(255, 255, 255, 200), Font, 1);
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
+            {
+                escapePressed = true;
+            }
+            else
+            {
+                if (escapePressed)
+                {
+                    escapePressed = false;
+                    Screen = "0";
+                    return;
+                }
+            }
+        }
+
+        void win(RenderWindow rw)
+        {
+            Text text = new Text("Поздравляем!", Font, 50);
+            Text text2 = new Text("Вы выиграли!", Font, 50);
+
+            Text contunu = new Text("Нажмите пробел, чтобы продолжить", Font, 50);
+
+            Text letter = new Text("A", Font, 50);
+
+            float textLength = text.GetLocalBounds().Width;
+            float textLength2 = text2.GetLocalBounds().Width;
+
+            float letterLength = letter.GetLocalBounds().Width;
+
+            RectangleShape rect = new RectangleShape(new Vector2f(textLength2 + letterLength, 400));
+            rect.Position = new Vector2f(Program.resolution.X / 2 - textLength2 / 2 - letterLength / 2, Program.resolution.Y / 2 - 200);
+            rect.FillColor = new Color(0, 49, 83, 200);
+            rw.Draw(rect);
+
+            rw.PrintText("Поздравляем!", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2 - 100), 50, new Color(255, 255, 255, 200), Font, 1);
+            rw.PrintText("Вы выиграли!", new Vector2f(Program.resolution.X / 2, Program.resolution.Y / 2 + 100), 50, new Color(255, 255, 255, 200), Font, 1);
+            rw.PrintText("Нажмите ПРОБЕЛ, чтобы продолжить", new Vector2f(Program.resolution.X / 2, Program.resolution.Y - 100), 70, new Color(255, 255, 255, 200), Font, 1);
+
+            if (Keyboard.IsKeyPressed(Keyboard.Key.Space))
+            {
+                escapePressed = true;
+            }
+            else
+            {
+                if (escapePressed)
+                {
+                    escapePressed = false;
+                    Screen = "0";
+                    return;
+                }
+            }
         }
 
         Planet GetClosestPlanet(float X, float Y) // получаем ближайшую координату к точке
