@@ -34,6 +34,13 @@ namespace Star_Wars_dev
 
         public abstract void Update();
 
+        public abstract void Attack(Entity enemy);
+
+        public void Death()
+        {
+            this.coords = new Vector2f(this.x, this.y);
+        }
+
         public void Move(Vector2f coords)
         {
             if (coords == null) throw new ArgumentNullException("Movement to nothing");

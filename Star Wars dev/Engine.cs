@@ -91,5 +91,26 @@ namespace Star_Wars_dev
             normalizing = (float)(int)(normalizing * 10);
             normalizing /= 10;
         }
+
+        public static string load(string filename)
+        {
+            using(FileStream fs = new FileStream(filename, FileMode.Open))
+            {
+                string info;
+                byte[] text = new byte[fs.Length];
+                fs.Read(text, 0, text.Length);
+                info = System.Text.Encoding.Default.GetString(text);
+                return info;
+            }
+        }
+
+        public static void upload(string filename, string info)
+        {
+            using(FileStream fs = new FileStream(filename, FileMode.Truncate))
+            {
+                byte[] text = System.Text.Encoding.Default.GetBytes(info);
+                fs.Write(text, 0, text.Length);
+            }
+        }
     }
 }

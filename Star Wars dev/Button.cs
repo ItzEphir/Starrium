@@ -211,5 +211,21 @@ namespace Star_Wars_dev
             rect.FillColor = this.color;
             rw.Draw(rect);
         }
+
+        public void changeColor(Color color)
+        {
+            this.color = color;
+            this.activeColor = new Color(0, 0, 0, 0);
+            this.colorTitle = new Color((byte)(color.R + 25), (byte)(color.G + 25), (byte)(color.B + 25), (byte)(color.A + 50));
+            this.activeColorTitle = new Color(0, 0, 0, 0);
+        }
+
+        public void secondChange(Color color, Color activeColor, Color colorTitle, Color activeColorTitle)
+        {
+            this.color = color;
+            this.activeColor = activeColor;
+            this.colorTitle = colorTitle;
+            this.activeColorTitle = activeColorTitle;
+        }
     }
 }
