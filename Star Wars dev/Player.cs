@@ -19,7 +19,8 @@ namespace Star_Wars_dev
         {
             
         }
-        public override void Update()
+
+        public override void Update(RenderWindow rw)
         {
             
         }

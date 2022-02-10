@@ -1,17 +1,19 @@
 ﻿using SFML.Window;
 using SFML.Graphics;
 using SFML.System;
-using System;
 
 namespace Star_Wars_dev
 {
     class Program
     {
         static Game game;
-        public static Vector2f resolution;
+
+        public static Vector2f OriginalResolution;
+        public static Vector2f Resolution;
 
         static void Main(string[] args)
         {
+            OriginalResolution = new Vector2f(1920, 1080);
 
             VideoMode vm = VideoMode.DesktopMode;
             // VideoMode vm = new VideoMode(1280, 720);
@@ -19,7 +21,7 @@ namespace Star_Wars_dev
             RenderWindow rw = new RenderWindow(vm, "StarWars", Styles.Fullscreen);
             // RenderWindow rw = new RenderWindow(vm, "StarWars");
 
-            resolution = new Vector2f(rw.Size.X, rw.Size.Y);
+            Resolution = new Vector2f(rw.Size.X, rw.Size.Y);
 
             game = new Game(rw);
 
@@ -36,7 +38,7 @@ namespace Star_Wars_dev
 
                 game.Draw();
 
-                game.Next(rw);
+                game.Update(rw);
 
                 rw.Display();
             }

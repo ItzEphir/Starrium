@@ -8,6 +8,7 @@
     ".NETCoreApp,Version=v6.0": {
       "Star Wars dev/1.0.0": {
         "dependencies": {
+          "Engine": "1.0.0",
           "SFML.Net": "2.5.0"
         },
         "runtime": {
@@ -365,6 +366,14 @@
             "fileVersion": "2.5.0.0"
           }
         }
+      },
+      "Engine/1.0.0": {
+        "dependencies": {
+          "SFML.Net": "2.5.0"
+        },
+        "runtime": {
+          "Engine.dll": {}
+        }
       }
     }
   },
@@ -415,6 +424,11 @@
       "sha512": "sha512-KuQvC0TrsxzhFJw9hDvMAzKD8/12jvXjP7sC3UO5MSM0sy5sfYNTqQktnQ3ELAV+rP1cqRKLsvosBfMfl1HkRw==",
       "path": "sfml.window/2.5.0",
       "hashPath": "sfml.window.2.5.0.nupkg.sha512"
+    },
+    "Engine/1.0.0": {
+      "type": "project",
+      "serviceable": false,
+      "sha512": ""
     }
   }
 }

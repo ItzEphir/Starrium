@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using SFML.Graphics;
 using SFML.System;
+using Engine;
 
 namespace Star_Wars_dev
 {
@@ -32,7 +33,7 @@ namespace Star_Wars_dev
 
         public abstract void Draw(RenderWindow rw);
 
-        public abstract void Update();
+        public abstract void Update(RenderWindow rw);
 
         public abstract void Attack(Entity enemy);
 

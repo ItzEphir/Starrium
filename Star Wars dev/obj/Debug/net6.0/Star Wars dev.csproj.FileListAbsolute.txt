@@ -154,3 +154,5 @@ C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\obj\Debug\net6.
 C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\obj\Debug\net6.0\ref\Star Wars dev.dll
 C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\obj\Debug\net6.0\Star Wars dev.pdb
 C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\obj\Debug\net6.0\Star Wars dev.genruntimeconfig.cache
+C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\bin\Debug\net6.0\Engine.dll
+C:\Users\dydvo\source\repos\Starrium\Star Wars dev\Star Wars dev\bin\Debug\net6.0\Engine.pdb

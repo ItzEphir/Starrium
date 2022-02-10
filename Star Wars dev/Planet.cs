@@ -66,7 +66,7 @@ namespace Star_Wars_dev
             this.ConnectedBuildings = new List<Building>(connected);
         }
 
-        public override void Update() {}
+        public override void Update(RenderWindow rw) {}
 
         public override void Draw(RenderWindow rw)
         {
@@ -108,7 +108,7 @@ namespace Star_Wars_dev
 
         public void Center()
         {
-            this.coords = Program.resolution / 2 - new Vector2f(this.Radius, this.Radius) * this.Scale;
+            this.coords = Program.Resolution / 2 - new Vector2f(this.Radius, this.Radius) * this.Scale;
         }
 
         public void normcoords()

@@ -55,7 +55,7 @@ namespace Star_Wars_dev
             this.sprite.Position = planet.coords;
         }
 
-        public override void Update()
+        public override void Update(RenderWindow rw)
         {
             if(this.Fuel < 0)
             {

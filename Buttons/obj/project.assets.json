@@ -301,19 +301,6 @@
         "runtime": {
           "lib/netstandard2.0/SFML.Window.dll": {}
         }
-      },
-      "Engine/1.0.0": {
-        "type": "project",
-        "framework": ".NETCoreApp,Version=v6.0",
-        "dependencies": {
-          "SFML.Net": "2.5.0"
-        },
-        "compile": {
-          "bin/placeholder/Engine.dll": {}
-        },
-        "runtime": {
-          "bin/placeholder/Engine.dll": {}
-        }
       }
     }
   },
@@ -449,16 +436,10 @@
         "sfml.window.2.5.0.nupkg.sha512",
         "sfml.window.nuspec"
       ]
-    },
-    "Engine/1.0.0": {
-      "type": "project",
-      "path": "../Engine/Engine.csproj",
-      "msbuildProject": "../Engine/Engine.csproj"
     }
   },
   "projectFileDependencyGroups": {
     "net6.0": [
-      "Engine >= 1.0.0",
       "SFML.Net >= 2.5.0"
     ]
   },
@@ -469,11 +450,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Star Wars dev\\Star Wars dev.csproj",
-      "projectName": "Star Wars dev",
-      "projectPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Star Wars dev\\Star Wars dev.csproj",
+      "projectUniqueName": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Buttons\\Engine.csproj",
+      "projectName": "Engine",
+      "projectPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Buttons\\Engine.csproj",
       "packagesPath": "C:\\Users\\dydvo\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Star Wars dev\\obj\\",
+      "outputPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Buttons\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files (x86)\\Microsoft Visual Studio\\Shared\\NuGetPackages"
@@ -493,14 +474,7 @@
       "frameworks": {
         "net6.0": {
           "targetAlias": "net6.0",
-          "projectReferences": {
-            "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Buttons\\Engine.csproj": {
-              "projectPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Buttons\\Engine.csproj"
-            },
-            "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Engine\\Engine.csproj": {
-              "projectPath": "C:\\Users\\dydvo\\source\\repos\\Starrium\\Star Wars dev\\Engine\\Engine.csproj"
-            }
-          }
+          "projectReferences": {}
         }
       },
       "warningProperties": {

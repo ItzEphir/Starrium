@@ -20,5 +20,10 @@ namespace Star_Wars_dev
         {
             rw.Draw(this.model);
         }
+
+        public override void Update(RenderWindow rw)
+        {
+            
+        }
     }
 }
