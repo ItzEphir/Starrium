@@ -7,6 +7,7 @@ namespace Star_Wars_dev
 {
     public class Planet : Entity
     {
+        public int ID { get; protected set; }
         public int Radius;
         public float Scale;
         public List<Building> ConnectedBuildings;
@@ -16,8 +17,9 @@ namespace Star_Wars_dev
         CircleShape shape;
         Sprite sprite;
 
-        public Planet(string name, float x, float y, int radius, Texture texture, float scale = 1, bool colonized = false, bool dead = false) : base(name, x, y)
+        public Planet(int id, string name, float x, float y, int radius, Texture texture, float scale = 1, bool colonized = false, bool dead = false) : base(name, x, y)
         {
+            this.ID = id;
             this.coords = new Vector2f(this.x, this.y);
             this.Radius = (int)texture.Size.X / 2;
             this.shape = new CircleShape(this.Radius);
@@ -32,8 +34,9 @@ namespace Star_Wars_dev
             this.Scale = scale;
         }
 
-        public Planet(string name,Vector2f coords, int radius, Texture texture, float scale = 1, bool colonized = false, bool dead = false) : base(name, coords)
+        public Planet(int id, string name,Vector2f coords, int radius, Texture texture, float scale = 1, bool colonized = false, bool dead = false) : base(name, coords)
         {
+            this.ID = id;
             this.Scale = scale;
             this.Radius = (int)texture.Size.X / 2;
             this.shape = new CircleShape(this.Radius);
@@ -71,7 +74,6 @@ namespace Star_Wars_dev
         public override void Draw(RenderWindow rw)
         {
             rw.Draw(this.sprite);
-            // rw.Draw(this.shape);
         }
 
         public override void Attack(Entity enemy) { }
