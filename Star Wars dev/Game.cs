@@ -8,6 +8,7 @@ using SFML.System;
 using SFML.Window;
 using SFML.Audio;
 using Engine;
+using System.IO;
 
 namespace Star_Wars_dev
 {
@@ -97,7 +98,7 @@ namespace Star_Wars_dev
 
             time = clock.ElapsedTime;
 
-            // Console.WriteLine(Screen);
+            Console.WriteLine(Screen);
             switch (Screen)
             {
                 case "0": menu(rw); break;
@@ -105,7 +106,7 @@ namespace Star_Wars_dev
                 case "inplanetan": inplanetan(rw); break;
                 case "inplanet": inplanet(rw); break;
                 case "continue": continuegame(rw); break;
-                case "new game": newgame(rw); break;
+                case "newgame": newgame(rw); break;
                 case "statistic": statistic(rw); break;
                 case "titles": titles(rw); break;
                 case "win": win(rw); break;
@@ -156,13 +157,13 @@ namespace Star_Wars_dev
 
             rw.PrintText("Starrium", new Vector2f(Program.Resolution.X / 2, 10), 100, Color.White, Font, 1);
 
+            ((ActiveButton)buttons[1]).ChangeColor(new Color(50, 50, 50, 100), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
+
             foreach (IDrawable drawable in drawables)
             {
                 drawable.Update(rw);
                 drawable.Draw(rw);
             }
-
-            ((ActiveButton)buttons[1]).ChangeColor(new Color(50, 50, 50, 100), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0), new Color(0, 0, 0, 0));
 
 
             if (Keyboard.IsKeyPressed(Keyboard.Key.Escape))
@@ -208,8 +209,6 @@ namespace Star_Wars_dev
 
             drawables.Add(player);
 
-            drawables.ForEach(drawable => drawable.Draw(rw));
-
             chosenPlanet = GetClosestPlanet(mouse.X, mouse.Y);
 
             if (chosenPlanet != null)
@@ -243,6 +242,8 @@ namespace Star_Wars_dev
             }
 
             drawables.ForEach(drawable => drawable.Update(rw));
+
+            drawables.ForEach(drawable => drawable.Draw(rw));
 
             checkEscape(rw);
         }
@@ -468,6 +469,11 @@ namespace Star_Wars_dev
             string[] buildings = new string[0];
             planet.ConnectedBuildings.ForEach(building => buildings.Append(building.Name));
 
+            if (!Directory.Exists($"files/saves/systems/{planet.SS.ID}"))
+            {
+                Directory.CreateDirectory($"files/saves/systems/{planet.SS.ID}");
+            }
+
             string info = "";
 
             foreach(string name in buildings)
@@ -575,12 +581,12 @@ namespace Star_Wars_dev
             
             player = new Player(playerinfo[0], Convert.ToInt32(playerinfo[1]), Convert.ToSingle(playerinfo[2]), Convert.ToSingle(playerinfo[3]), new Vector2f(Convert.ToSingle(playerinfo[4]), Convert.ToSingle(playerinfo[5])), new Texture("files/img/Vzhvzhvzhvzh.png"), 0.5f);
 
-            planets.Add(new Planet("Sterrum", new Vector2f(Program.Resolution.X / 2, Program.Resolution.Y / 2), 75, new Texture("files/img/planet01.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
-            planets.Add(new Planet("Akra", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 300, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 300), 75, new Texture("files/img/planet02.png"), 1f, Convert.ToBoolean(info[2]), Convert.ToBoolean(info[3])));
-            planets.Add(new Planet("Lauzer", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 500, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 500), 75, new Texture("files/img/planet03.png"), 1f, Convert.ToBoolean(info[4]), Convert.ToBoolean(info[5])));
-            planets.Add(new Planet("Nasté", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * (-200), Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * (-400)), 75, new Texture("files/img/planet04.png"), 1f, Convert.ToBoolean(info[6]), Convert.ToBoolean(info[7])));
-            planets.Add(new Planet("Athou", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * (-400), Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 600), 75, new Texture("files/img/planet05.png"), 1f, Convert.ToBoolean(info[8]), Convert.ToBoolean(info[9])));
-            planets.Add(new Planet("Lemon King", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 400, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * (-350)), 75, new Texture("files/img/planet06.png"), 1f, Convert.ToBoolean(info[10]), Convert.ToBoolean(info[11])));
+            planets.Add(new Planet(0, "Sterrum", new Vector2f(Program.Resolution.X / 2, Program.Resolution.Y / 2), 75, new Texture("files/img/planet01.png"), 1f, Convert.ToBoolean(info[0]), Convert.ToBoolean(info[1])));
+            planets.Add(new Planet(1, "Akra", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 300, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 300), 75, new Texture("files/img/planet02.png"), 1f, Convert.ToBoolean(info[2]), Convert.ToBoolean(info[3])));
+            planets.Add(new Planet(2, "Lauzer", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 500, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 500), 75, new Texture("files/img/planet03.png"), 1f, Convert.ToBoolean(info[4]), Convert.ToBoolean(info[5])));
+            planets.Add(new Planet(3, "Nasté", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * (-200), Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * (-400)), 75, new Texture("files/img/planet04.png"), 1f, Convert.ToBoolean(info[6]), Convert.ToBoolean(info[7])));
+            planets.Add(new Planet(4, "Athou", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * (-400), Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * 600), 75, new Texture("files/img/planet05.png"), 1f, Convert.ToBoolean(info[8]), Convert.ToBoolean(info[9])));
+            planets.Add(new Planet(5, "Lemon King", new Vector2f(Program.Resolution.X / 2 - Program.Resolution.X / Program.Resolution.Y * 400, Program.Resolution.Y / 2 - Program.Resolution.Y / Program.Resolution.X * (-350)), 75, new Texture("files/img/planet06.png"), 1f, Convert.ToBoolean(info[10]), Convert.ToBoolean(info[11])));
 
             for(int i = 0; i < planetinfo.GetLength(0); i++)
             {
@@ -622,6 +628,7 @@ namespace Star_Wars_dev
         void newgame(RenderWindow rw)
         {
             Screen = "game";
+            return;
         }
 
         void statistic(RenderWindow rw)

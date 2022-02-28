@@ -7,6 +7,7 @@ namespace Star_Wars_dev
 {
     public class Planet : Entity
     {
+        public StarSystem SS { get; private set; }
         public int ID { get; protected set; }
         public int Radius;
         public float Scale;
